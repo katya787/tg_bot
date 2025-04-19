@@ -3,7 +3,7 @@ from telebot.types import Message
 import random 
 from random import choice
 
-bot = telebot.TeleBot()
+bot = telebot.TeleBot('7650112912:AAEy8nMYtEKuog-69tBSy75hpX0X5mvJO-k')
 
 
 @bot.message_handler(commands=['start'])
@@ -66,10 +66,12 @@ def knb_game(message: Message):
     else:
         bot.send_message(message.chat.id, 'Вы проиграли, если хотите поигратьснова, напишите /knb')
         return
-    
-@bot.massage_handler(command=['door'])
+
+
+
+@bot.message_handler(commands=['door'])
 def door_cmd(message: Message):
-    bot.send_message(message.chat.id, 'Игра запустилась, напишите 1/2/3(дабы выбрать дверь) или отмена(чтобы отменить игру)')
+    bot.send_message(message.chat.id, 'Игра запустилась, напишите первая/вторая/третья или отмена(чтобы отменить игру)')
     bot.register_next_step_handler(message, door_game)
 
 def door_game(message: Message):
@@ -77,23 +79,23 @@ def door_game(message: Message):
     if text == 'отмена':
         bot.send_message(message.chat.id, 'Игра остановлена, вам снова доступны все команды')
         return
-    if text not in['1', '2', '3']:
+    if text not in['первая', 'вторая', 'третья']:
         bot.send_message(message.chat.id, 'Вы написали что-то не то, игра остановлена, вам снова доступны все команды')
         return
-    comp = random.choice(['1', '2', '3'])
+    comp = random.choice(['первая', 'вторая', 'третья'])
     if text == comp:
-        bot.send_message(message.chat.id,'Вы открыли дверь где находились сокровища, если хотите играть снова, напишите /door')
+        bot.send_message(message.chat.id,'Открывая дверь вы нашли сокровища,поздравляю 🎉! если хотите поиграть снова, напишите /door')
         return
-    else:
-        bot.send_message(message.chat.id, 'Вы открыли дверь,но вдруг под вами проваливается пол, к сожалению вы проиграли, если хотите поигратьснова, напишите /door')
+    elif text != comp:
+        bot.send_message(message.chat.id, 'Когда вы открывали дверь пол обрушился, к сожалению вы проиграли ٩(×̯×)۶. если хотите поиграть снова, напишите /door')
         return
-
+    
 
 
 
 @bot.message_handler(commands=['help'])
 def help_cmd(message: Message):
-    text = "<b>Мои команды:</b>\n /start - <i>запуск бота</i>\n /coin - <i>монетка</i>\n /help - <i>все команды</i>\n /bye - <i>бот попрощается</i>\n /emoji - <i>рандомный эмоджи</i>\n /gen_pass - <i>генерация пароля</i>\n /knb - <i>игра кнб</i>\n /door - <i>игра двери<i>"
+    text = "<b>Мои команды:</b>\n /start - <i>запуск бота</i>\n /coin - <i>монетка</i>\n /help - <i>все команды</i>\n /bye - <i>бот попрощается</i>\n /emoji - <i>рандомный эмоджи</i>\n /gen_pass - <i>генерация пароля</i>\n /knb - <i>игра кнб</i>\n /door - <i>игра двери</i>"
     bot.send_message(message.chat.id, text, parse_mode = 'html')
    
 
@@ -108,3 +110,8 @@ def hay_text(message: Message):
 
 
 bot.infinity_polling()
+
+
+
+
+
